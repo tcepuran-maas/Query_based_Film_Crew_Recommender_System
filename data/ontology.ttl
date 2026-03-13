@@ -1,1 +1,159 @@
+@prefix ex: <http://example.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:MovieCrewOntology a owl:Ontology ;
+    rdfs:label "Movie Crew Ontology" ;
+    rdfs:comment "Ontology for movies with their cast and crew members" .
+
+ex:castOrder a owl:DatatypeProperty ;
+    rdfs:label "cast order" ;
+    rdfs:comment "The order in which a cast member is listed in the credits of a movie. Only applies to actors. Gives information on the importance of the role (main role, supporting role, etc.)" ;
+    rdfs:domain ex:Participation ;
+    rdfs:range xsd:integer .
+
+ex:hasParticipant a owl:ObjectProperty ;
+    rdfs:label "has participant" ;
+    rdfs:comment "link to the person participating in a movie" ;
+    rdfs:domain ex:Participation ;
+    rdfs:range schema:Person .
+
+ex:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role" ;
+    rdfs:comment "link to the role of a person in a movie, e.g. director, actor, producer, etc." ;
+    rdfs:domain ex:Participation ;
+    rdfs:range schema:Role .
+
+ex:inMovie a owl:ObjectProperty ;
+    rdfs:label "is in movie" ;
+    rdfs:comment "link to the movie in which a person participates" ;
+    rdfs:domain ex:Participation ;
+    rdfs:range schema:Movie .
+
+ex:playedCharacter a owl:DatatypeProperty ;
+    rdfs:label "played character" ;
+    rdfs:comment "The character played by a person in a movie. Only applies to actors." ;
+    rdfs:domain ex:Participation ;
+    rdfs:range xsd:string .
+
+ex:popularity a owl:DatatypeProperty ;
+    rdfs:label "popularity" ;
+    rdfs:comment "The popularity score of a movie on TMDb" ;
+    rdfs:domain schema:Movie ;
+    rdfs:range xsd:float .
+
+schema:Country a owl:Class ;
+    rdfs:label "Country" ;
+    rdfs:comment "A country which is a specific type of place. Has no usable URL yet because there is no URL on TMDb." ;
+    rdfs:subClassOf schema:Place .
+
+schema:aggregateRating a owl:ObjectProperty ;
+    rdfs:label "aggregate rating" ;
+    rdfs:comment "link to the aggregate rating of a movie, including the average rating and the number of ratings on TMDb" ;
+    rdfs:domain schema:Movie ;
+    rdfs:range schema:AggregateRating .
+
+schema:birthDate a owl:DatatypeProperty ;
+    rdfs:label "birth date" ;
+    rdfs:comment "The birth date of a person" ;
+    rdfs:domain schema:Person ;
+    rdfs:range xsd:date .
+
+schema:birthPlace a owl:ObjectProperty ;
+    rdfs:label "birth place" ;
+    rdfs:comment "Link to the place where a person was born. Mostly just the country" ;
+    rdfs:domain schema:Person ;
+    rdfs:range schema:Place .
+
+schema:datePublished a owl:DatatypeProperty ;
+    rdfs:label "date published" ;
+    rdfs:comment "The date when a movie was published" ;
+    rdfs:domain schema:Movie ;
+    rdfs:range xsd:date .
+
+schema:deathDate a owl:DatatypeProperty ;
+    rdfs:label "death date" ;
+    rdfs:comment "The death date of a person" ;
+    rdfs:domain schema:Person ;
+    rdfs:range xsd:date .
+
+schema:duration a owl:DatatypeProperty ;
+    rdfs:label "duration" ;
+    rdfs:comment "The duration of a movie in minutes" ;
+    rdfs:domain schema:Movie ;
+    rdfs:range xsd:integer .
+
+schema:gender a owl:DatatypeProperty ;
+    rdfs:label "gender" ;
+    rdfs:comment "The gender of a person written as a single letter ('u' for unknown, 'm' for male, 'f' for female, 'b' for non-binary)" ;
+    rdfs:domain schema:Person ;
+    rdfs:range xsd:string .
+
+schema:genre a owl:ObjectProperty ;
+    rdfs:label "is genre" ;
+    rdfs:comment "link to the genres of a movie, e.g. action, comedy, horror, etc." ;
+    rdfs:domain schema:Movie ;
+    rdfs:range ex:Genre .
+
+schema:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier" ;
+    rdfs:comment "A unique identifier for a person, movie, genre, role, place, country, or aggregate rating" .
+
+schema:inLanguage a owl:DatatypeProperty ;
+    rdfs:label "in language" ;
+    rdfs:comment "The original language of a movie" ;
+    rdfs:domain schema:Movie ;
+    rdfs:range xsd:string .
+
+schema:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:comment "The name of a person, movie, genre, role, place, country, or aggregate rating" .
+
+schema:ratingCount a owl:DatatypeProperty ;
+    rdfs:label "rating count" ;
+    rdfs:comment "The number of ratings a movie has received in the AggregateRating class" ;
+    rdfs:domain schema:AggregateRating ;
+    rdfs:range xsd:integer .
+
+schema:ratingValue a owl:DatatypeProperty ;
+    rdfs:label "rating value" ;
+    rdfs:comment "The average rating value of a movie in the AggregateRating class" ;
+    rdfs:domain schema:AggregateRating ;
+    rdfs:range xsd:float .
+
+schema:roleName a owl:DatatypeProperty ;
+    rdfs:label "role name" ;
+    rdfs:comment "The name of a role that a person can have in a movie, e.g. director, actor, producer, etc." ;
+    rdfs:domain schema:Role ;
+    rdfs:range xsd:string .
+
+ex:Genre a owl:Class ;
+    rdfs:label "Genre" ;
+    rdfs:comment "A genre of movies which can be found on TMDb" .
+
+schema:Place a owl:Class ;
+    rdfs:label "Place" ;
+    rdfs:comment "A place somewhere on Earth. Has no usable URL yet because there is no URL on TMDb." .
+
+schema:Role a owl:Class ;
+    rdfs:label "Role in Movie" ;
+    rdfs:comment "A role that a person can have in a movie, e.g. director, actor, producer, etc. Has no usable URL yet because there is no URL on the web, only written on the page of the movie or person." .
+
+schema:AggregateRating a owl:Class ;
+    rdfs:label "aggregate rating" ;
+    rdfs:comment "An aggregate rating of a movie, e.g. the average rating and the number of ratings on TMDb. Has no usable URL yet because there is no URL on the web, only written on the page of the movie." .
+
+ex:Participation a owl:Class ;
+    rdfs:label "Participation" ;
+    rdfs:comment "A participation of a person in a movie including all the roles they had in that movie. Has no usable URL yet because there is no URL on the web, only for the movie and person." .
+
+schema:Person a owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:comment "A person involved in the movie industry as cast or crew" .
+
+schema:Movie a owl:Class ;
+    rdfs:label "Movie" ;
+    rdfs:comment "A movie which can be found on TMDb" .
 
